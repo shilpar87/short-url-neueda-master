@@ -1,0 +1,25 @@
+version: '3'
+volumes:
+   data:
+   m2:
+services:
+   database:
+      image: postgres:11.3
+      environment:
+         - POSTGRES_DB=shorturl
+         - POSTGRES_USER=postgres
+         - POSTGRES_PASSWORD=postgres
+      volumes:
+         - data:/var/lib/postgresql/data
+   backend:
+      image: zenika/alpine-maven:3
+      restart: always
+      volumes:
+         - .:/app
+         - m2:/root/.m2
+      working_dir: /app
+      command: mvn clean spring-boot:run    
+      ports:
+         - 80:8080
+      depends_on:
+         - database
