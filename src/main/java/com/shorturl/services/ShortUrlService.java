@@ -1,5 +1,7 @@
 package com.shorturl.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -90,5 +92,11 @@ public class ShortUrlService {
 
 	public ShortUrl fromDTO(ShortUrlDTO urlDto) {
 		return new ShortUrl(urlDto.getCode(), urlDto.getLongUrl());
+	}
+
+	public List<ShortUrl> findAllUrls() {
+		List<ShortUrl> urlList = new ArrayList<ShortUrl>();
+		urlList =repository.findAll();
+		return urlList;
 	}
 }

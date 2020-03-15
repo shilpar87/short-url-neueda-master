@@ -1,6 +1,7 @@
 package com.shorturl.resources;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -85,6 +86,14 @@ public class ShortUrlResources {
 				.toUri();
 
 		return ResponseEntity.created(uri).build();
+	}
+
+	@GetMapping(path = "/urldetails")
+	public ResponseEntity<List<ShortUrl>> findAllUrls() {
+		ResponseEntity<List<ShortUrl>> responseEntity;
+		List<ShortUrl> urls = service.findAllUrls();
+		responseEntity = ResponseEntity.ok().body(urls);
+		return responseEntity;
 	}
 
 	@PutMapping(value = "/{code}")
